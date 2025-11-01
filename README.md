@@ -25,7 +25,9 @@ crash                        # Simulate a crash (stop processing messages)
 recover                      # Recover and synchronize from peers
 quit                         # Exit node and clear its log file
 ```
+
 ## System setup
+```
 primary 0: python vr_node.py --id 0 --port 6000 --peer_ports 6000,6001,6002,6003,6004
 backup 1: python vr_node.py --id 1 --port 6001 --peer_ports 6000,6001,6002,6003,6004
 backup 2: python vr_node.py --id 2 --port 6002 --peer_ports 6000,6001,6002,6003,6004
@@ -36,64 +38,80 @@ primary: status
 primary: data
 backup: status
 backup: data
+```
 
 ## Case 1: 1 no, 2 yes, 3 no, 4 yes (totally 3 yes)
+```
 primary: client alice deposit 50
 backup 1: cancommit vote no 1
 backup 2: cancommit vote yes 1
 backup 3: cancommit vote no 1
 backup 4: cancommit vote yes 1
 primary: data
+```
 
 ## Case 2: 1 no, 2 yes, 3 no, 4 yes (totally 3 yes)
+```
 primary: client alice withdraw 20
 backup 1: cancommit vote no 2
 backup 2: cancommit vote yes 2
 backup 3: cancommit vote no 2
 backup 4: cancommit vote yes 2
 primary: data
+```
 
 ## Case 3: 1 no, 2 no, 3 no, 4 no (totally 4 no)
+```
 primary: client alice withdraw 50
 backup 1: cancommit vote no 3
 backup 2: cancommit vote no 3
 backup 3: cancommit vote no 3
 backup 4: cancommit vote no 3
 primary: data
+```
 
 ## Case 4: primary crashes, and node 1 starts the view change (2 yes, 3 no, 4 yes, totally 3 yes)
+```
 primary: crash
 backup 1: start-view-change
 backup 2: do-view-change vote yes
 backup 3: do-view-change vote no
 backup 4: do-view-change vote yes
 backup 1 as the new primary: status
+```
 
 ## Case 5: 1 no, 2 no, 3 no, 4 no (totally 4 no)
+```
 backup 1: client bob deposit 100
 backup 2: cancommit vote yes 4
 backup 3: cancommit vote no 4
 backup 4: cancommit vote yes 4
 backup 1 as the new primary: data
+```
 
 ## Case 6: node 0 recovers
+```
 node 0: recover
 node 0: status
 node 0: data
+```
 
 ## Case 6: node 0 crashes
+```
 node 0: crash
 backup 1 as the new primary: client bob withdraw 20
 backup 2: cancommit vote yes 5
 backup 3: cancommit vote no 5
 backup 4: cancommit vote yes 5
 backup 1 as the new primary: data
+```
 
 ## Case 7: node 0 recovers
+```
 node 0: recover
 node 0: status
 node 0: data
-
+```
 
 
 
