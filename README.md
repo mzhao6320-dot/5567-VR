@@ -96,7 +96,7 @@ node 0: status
 node 0: data
 ```
 
-## Case 6: node 0 crashes
+## Case 7: node 0 crashes
 ```
 node 0: crash
 backup 1 as the new primary: client bob withdraw 20
@@ -106,7 +106,7 @@ backup 4: cancommit vote yes 5
 backup 1 as the new primary: data
 ```
 
-## Case 7: node 0 recovers
+## Case 8: node 0 recovers
 ```
 node 0: recover
 node 0: status
