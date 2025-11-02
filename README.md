@@ -80,7 +80,7 @@ backup 4: do-view-change vote yes
 backup 1 as the new primary: status
 ```
 
-## Case 5: 1 no, 2 no, 3 no, 4 no (totally 4 no)
+## Case 5: 2 yes, 3 no, 4 yes (totally 3 yes)
 ```
 backup 1: client bob deposit 100
 backup 2: cancommit vote yes 4
